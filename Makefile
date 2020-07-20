@@ -1,5 +1,5 @@
 # To specify text which are not real files or dir
-.PHONY: install help up build prune down app clean
+.PHONY: install help up build prune down clean
 
 # make|make help, Displays help
 .DEFAULT_GOAL = help
