@@ -31,7 +31,7 @@ bash:
 	$(DOCKER_COMPOSE) exec php bash
 
 fixtures: migration ## Makes data available for the application
-	$(EXEC_PHP) ./bin/console doctrine:fixtures:load --no-interaction
+	$(EXEC_PHP) ./bin/console hautelook:fixtures:load --no-interaction --no-bundles
 
 migration: db-drop db-create ## Updates database schema
 	$(EXEC_PHP) ./bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
