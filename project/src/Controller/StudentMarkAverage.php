@@ -12,6 +12,8 @@ class StudentMarkAverage
     {
         //Calculate student average marks
 
+//        $data['average_mark'] = 15;
+
         return $data;
     }
 

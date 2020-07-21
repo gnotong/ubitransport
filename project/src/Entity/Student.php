@@ -4,27 +4,49 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\StudentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Controller\StudentMarkAverage;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=StudentRepository::class)
+ * @UniqueEntity(
+ *     fields={"birthDate", "firstName", "lastName"},
+ *     errorPath="firstName",
+ *     message="this name is already in use on that birthDate",
+ *     groups={"create:student"}
+ * )
  * @ApiResource(
+ *     attributes={
+ *          "order"={"firstName": "ASC"}
+ *     },
+ *     paginationItemsPerPage=3,
  *     collectionOperations={
- *          "get",
- *          "post"
+ *          "get"={
+ *              "normalization_context"={"groups"={"read:student"}}
+ *          },
+ *          "post"={
+ *              "denormalization_context"={"groups"={"create:student"}},
+ *              "validation_groups"={"create:student"}
+ *          }
  *     },
  *     itemOperations={
- *          "put",
+ *          "put"={
+ *              "denormalization_context"={"groups"={"update:student"}},
+ *          },
  *          "delete",
  *          "get_mark_avg"={
  *              "method"="GET",
  *              "path"="/students/{id}/avg",
- *              "controller"=StudentMarkAverage::class
+ *              "controller"=StudentMarkAverage::class,
+ *              "normalization_context"={"groups"={"read:student"}}
  *          }
  *     }
  * )
@@ -35,28 +57,42 @@ class Student
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"read:student"})
      */
     private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
-     */
-    private ?string $lastName = null;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @Groups({"read:student", "create:student", "update:student"})
+     * @Assert\NotBlank(message="This value should not be blank.", groups={"create:student"})
      */
     private ?string $firstName = null;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"read:student", "create:student", "update:student"})
+     * @Assert\NotBlank(message="This value should not be blank.", groups={"create:student"})
+     */
+    private ?string $lastName = null;
+
+    /**
      * @ORM\Column(type="datetime")
+     * @Groups({"read:student", "create:student", "update:student"})
+     * @Assert\NotNull(message="birthDate is required.", groups={"create:student"})
+     * @Assert\Type(type="\DateTimeInterface", message="incorrect format", groups={"create:student"})
      */
     private ?\DateTimeInterface $birthDate = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Mark::class, mappedBy="student", orphanRemoval=true)
+     * @Groups({"read:student"})
      */
     private Collection $marks;
+
+    /**
+     * @ApiProperty()
+     */
+    public int $avg;
 
     public function __construct()
     {
