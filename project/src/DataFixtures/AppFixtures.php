@@ -6,14 +6,17 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Nelmio\Alice\Loader\NativeLoader;
+use Nelmio\Alice\Throwable\LoadingThrowable;
 
 class AppFixtures extends Fixture
 {
+    /**
+     * @throws LoadingThrowable
+     */
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
-
-        $manager->flush();
+        $loader = new NativeLoader();
+        $loader->loadFile(__DIR__ . '/student.yaml');
     }
 }

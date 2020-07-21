@@ -1,0 +1,25 @@
+App\Entity\Mark:
+  mark_math_{1..10}:
+    value: '<numberBetween(12, 20)>'
+    subject: 'MATH101'
+    student: '@student_<current()>'
+
+  mark_english_{1..10}:
+    value: '<numberBetween(12, 20)>'
+    subject: 'ENG101'
+    student: '@student_<current()>'
+
+  mark_history_{1..10}:
+    value: '<numberBetween(12, 20)>'
+    subject: 'HIST101'
+    student: '@student_<current()>'
+
+  mark_physic_{1..10}:
+    value: '<numberBetween(12, 20)>'
+    subject: 'PHY101'
+    student: '@student_<current()>'
+
+  mark_software_{1..10}:
+    value: '<numberBetween(12, 20)>'
+    subject: 'INFO101'
+    student: '@student_<current()>'
