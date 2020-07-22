@@ -1,5 +1,5 @@
 # To specify text which are not real files or dir
-.PHONY: install help up build prune down clean func-test
+.PHONY: install help up build prune down clean func-test vendor
 
 # make|make help, Displays help
 .DEFAULT_GOAL = help
@@ -16,7 +16,10 @@ help:
 up: down ## Wakes up containers in the detached mode
 	$(DOCKER_COMPOSE) up -d
 
-install: down clean build up ## Builds containers and run them
+install: down clean build up vendor ## Builds containers and run them
+
+vendor:
+	$(EXEC_PHP) composer install --prefer-dist --no-progress --no-suggest --no-interaction
 
 build: down prune ## Builds images
 	$(DOCKER_COMPOSE) build

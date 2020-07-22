@@ -93,25 +93,4 @@ class MarkTest extends BaseWebTestCase
         $this->assertIsArray($responseDecoded);
         $this->assertStringContainsString('subject: This value should not be empty', $responseDecoded['detail']);
     }
-
-    /**
-     * @depends testGetFirstStudent
-     */
-    public function testPostMarkWithoutIri(int $id): void
-    {
-        $response = $this->getResponseFromRequest(
-            Request::METHOD_POST,
-            '/api/marks',
-            sprintf(self::MARK_PAYLOAD, 'ABC123', 20, ""),
-            true
-        );
-
-        $responseContent = $response->getContent();
-        $responseDecoded = json_decode($responseContent, true);
-
-        $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
-        $this->assertJson($responseContent);
-        $this->assertIsArray($responseDecoded);
-        $this->assertStringContainsString('Invalid IRI', $responseDecoded['detail']);
-    }
 }
