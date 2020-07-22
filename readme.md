@@ -40,7 +40,7 @@ Launch the command `make install` which will make the application available on t
 - It can be imported within postman collections
 ```
 
-- The list of student is a paginated api: [localhost:8000/api/students?page=2](localhost:8000/api/students?page=2)
+- The list of student is a paginated api: [localhost:8000/api/students?page=1](http://localhost:8000/api/students?page=1)
 
 ### Tests
 
