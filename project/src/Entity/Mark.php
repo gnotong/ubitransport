@@ -23,7 +23,7 @@ use App\Controller\EmptyResponse;
  * @ApiResource(
  *    collectionOperations={
  *          "post"={
- *              "denormalization_context"={"groups"={"create:mark"}},
+ *              "normalization_context"={"groups"={"create:mark"}},
  *              "validation_groups"={"create:mark"}
  *          }
  *     },

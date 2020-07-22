@@ -7,16 +7,23 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Nelmio\Alice\Loader\NativeLoader;
-use Nelmio\Alice\Throwable\LoadingThrowable;
 
 class AppFixtures extends Fixture
 {
-    /**
-     * @throws LoadingThrowable
-     */
-    public function load(ObjectManager $manager): void
+    public function load(ObjectManager $manager)
     {
         $loader = new NativeLoader();
-        $loader->loadFile(__DIR__ . '/student.yaml');
+
+        $objectSets = $loader->loadFiles([
+            __DIR__ . '/../../fixtures/student.yaml',
+            __DIR__ . '/../../fixtures/mark.yaml',
+        ])->getObjects();
+
+        foreach($objectSets as $object)
+        {
+            $manager->persist($object);
+        }
+
+        $manager->flush();
     }
 }

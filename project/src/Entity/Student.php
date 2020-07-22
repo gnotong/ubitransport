@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\StudentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,6 +13,7 @@ use App\Controller\StudentMarkAverage;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Controller\EmptyResponse;
 
 /**
  * @ORM\Entity(repositoryClass=StudentRepository::class)
@@ -33,13 +33,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  *              "normalization_context"={"groups"={"read:student"}}
  *          },
  *          "post"={
- *              "denormalization_context"={"groups"={"create:student"}},
+ *              "normalization_context"={"groups"={"create:student"}},
  *              "validation_groups"={"create:student"}
  *          }
  *     },
  *     itemOperations={
+ *          "get"={
+ *              "controller"=EmptyResponse::class,
+ *              "read"=false,
+ *              "deserialize"=false
+ *          },
  *          "put"={
- *              "denormalization_context"={"groups"={"update:student"}},
+ *              "normalization_context"={"groups"={"update:student"}}
  *          },
  *          "delete",
  *          "get_mark_avg"={
@@ -88,11 +93,6 @@ class Student
      * @Groups({"read:student"})
      */
     private Collection $marks;
-
-    /**
-     * @ApiProperty()
-     */
-    public int $avg;
 
     public function __construct()
     {
