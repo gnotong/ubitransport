@@ -35,11 +35,11 @@ fixtures-all: fixtures fixtures-test  ## Makes data available for the applicatio
 fixtures: migration ## Makes data available for the application
 	$(EXEC_PHP) ./bin/console hautelook:fixtures:load --no-interaction --no-bundles
 
-fixtures-test:  ## Makes data available for the application in the test environment
-	$(EXEC_PHP) ./bin/console doctrine:database:drop --if-exists --force --env=test
-	$(EXEC_PHP) ./bin/console doctrine:database:create --if-not-exists --env=test
-	$(EXEC_PHP) ./bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration --env=test
-	$(EXEC_PHP) ./bin/console hautelook:fixtures:load --no-interaction --no-bundles --env=test
+#fixtures-test:  ## Makes data available for the application in the test environment
+#	$(EXEC_PHP) ./bin/console doctrine:database:drop --if-exists --force --env=test
+#	$(EXEC_PHP) ./bin/console doctrine:database:create --if-not-exists --env=test
+#	$(EXEC_PHP) ./bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration --env=test
+#	$(EXEC_PHP) ./bin/console hautelook:fixtures:load --no-interaction --no-bundles --env=test
 
 migration: db-drop db-create ## Updates database schema
 	$(EXEC_PHP) ./bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
