@@ -9,7 +9,7 @@ use App\Repository\StudentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Controller\StudentMarkAverage;
+use App\Controller\RoomMarkAverage;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -35,6 +35,11 @@ use App\Controller\EmptyResponse;
  *          "post"={
  *              "normalization_context"={"groups"={"create:student"}},
  *              "validation_groups"={"create:student"}
+ *          },
+ *          "room_mark_avg"={
+ *              "method"="GET",
+ *              "path"="/students/avg",
+ *              "controller"=RoomMarkAverage::class
  *          }
  *     },
  *     itemOperations={
@@ -47,11 +52,9 @@ use App\Controller\EmptyResponse;
  *              "normalization_context"={"groups"={"update:student"}}
  *          },
  *          "delete",
- *          "get_mark_avg"={
- *              "method"="GET",
- *              "path"="/students/{id}/avg",
- *              "controller"=StudentMarkAverage::class,
- *              "normalization_context"={"groups"={"read:student"}}
+ *          "average"={
+ *              "route_name"="students_get_average",
+ *              "normalization_context"={"groups"={"avg:student"}}
  *          }
  *     }
  * )
@@ -68,21 +71,21 @@ class Student
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read:student", "create:student", "update:student"})
+     * @Groups({"read:student", "create:student", "update:student", "avg:student"})
      * @Assert\NotBlank(message="This value should not be blank.", groups={"create:student"})
      */
     private ?string $firstName = null;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read:student", "create:student", "update:student"})
+     * @Groups({"read:student", "create:student", "update:student", "avg:student"})
      * @Assert\NotBlank(message="This value should not be blank.", groups={"create:student"})
      */
     private ?string $lastName = null;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"read:student", "create:student", "update:student"})
+     * @Groups({"read:student", "create:student", "update:student", "avg:student"})
      * @Assert\NotNull(message="birthDate is required.", groups={"create:student"})
      * @Assert\Type(type="\DateTimeInterface", message="incorrect format", groups={"create:student"})
      */
@@ -140,6 +143,9 @@ class Student
         return $this;
     }
 
+    /**
+     * @return Collection|ArrayCollection|Mark[]
+     */
     public function getMarks(): Collection
     {
         return $this->marks;
