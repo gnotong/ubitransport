@@ -6,7 +6,7 @@
 
 - You need `docker` and `docker-compose` installed and running on your computer
 - Make sure you have `make` working on your machine
-- Istead of `localhost`, you can use your own domain
+- You can either use `localhost` or your own domain
 
 ---
 
