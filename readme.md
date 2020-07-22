@@ -37,3 +37,9 @@ Launch the command `make install` which will make the application available on t
 - it contains postman api requests welformatted
 - It can be imported within postman collections
 ```
+
+### Tests
+
+- `make all-tests`: to run functional and unit tests
+- `make unit-test`: to run unit tests
+- `make functional-test`: to run functional tests
