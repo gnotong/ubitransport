@@ -3,6 +3,7 @@ framework:
     session:
         storage_id: session.storage.mock_file
 
+# liip/LiipTestFixturesBundle: caching the db test to speed up functional tests
 liip_test_fixtures:
     cache_db:
         sqlite: liip_test_fixtures.services_database_backup.sqlite

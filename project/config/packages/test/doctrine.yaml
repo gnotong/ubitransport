@@ -1,3 +1,4 @@
+# liip/LiipTestFixturesBundle: db used for tests
 doctrine:
   dbal:
     driver: pdo_sqlite
