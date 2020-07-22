@@ -112,6 +112,6 @@ class MarkTest extends BaseWebTestCase
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
         $this->assertJson($responseContent);
         $this->assertIsArray($responseDecoded);
-        $this->assertStringContainsString('Invalid IRI ', $responseDecoded['detail']);
+        $this->assertStringContainsString('Invalid IRI', $responseDecoded['detail']);
     }
 }
