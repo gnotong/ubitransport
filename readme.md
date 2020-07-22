@@ -23,6 +23,8 @@ Launch the command `make install` which will make the application available on t
 
 *NB:* to know available commands, type `make` or `make help`
 
+- The default db(ubitransport) is configured in the `.env` file. You can create your own file like `.env.local` using the same `ubitransport` db name
+
 ---
 
 ### API Usage
@@ -37,6 +39,8 @@ Launch the command `make install` which will make the application available on t
 - it contains postman api requests welformatted
 - It can be imported within postman collections
 ```
+
+- The list of student is a paginated api: [localhost:8000/api/students?page=2](localhost:8000/api/students?page=2)
 
 ### Tests
 

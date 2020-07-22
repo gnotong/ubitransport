@@ -16,7 +16,7 @@ help:
 up: down ## Wakes up containers in the detached mode
 	$(DOCKER_COMPOSE) up -d
 
-install: down clean build up vendor ## Install the application
+install: down clean build up vendor fixtures ## Install the application
 
 vendor: ## Install symfony dependencies
 	$(EXEC_PHP) composer install --prefer-dist --no-progress --no-suggest --no-interaction
@@ -24,16 +24,15 @@ vendor: ## Install symfony dependencies
 build: down prune ## Builds images
 	$(DOCKER_COMPOSE) build
 
-prune: down ## Cleans up unused containers and images
+prune: down ## Cleans up unused containers, images and volumes
 	$(DOCKER) system prune -a -f
+	$(DOCKER) volume prune
 
 down: ## Switches off all running containers
 	$(DOCKER_COMPOSE) down
 
 bash:  ## To access php container in command line
 	$(DOCKER_COMPOSE) exec php bash
-
-fixtures-all: fixtures fixtures-test  ## Makes data available for the application in dev and test environments
 
 fixtures: migration ## Makes data available for the application
 	$(EXEC_PHP) ./bin/console hautelook:fixtures:load --no-interaction --no-bundles
