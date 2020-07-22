@@ -73,6 +73,7 @@ class Student
      * @ORM\Column(type="string", length=255)
      * @Groups({"read:student", "create:student", "update:student", "avg:student"})
      * @Assert\NotBlank(message="This value should not be blank.", groups={"create:student"})
+     * @Assert\Length(min="3", groups={"create:student", "update:student"})
      */
     private ?string $firstName = null;
 
@@ -80,14 +81,15 @@ class Student
      * @ORM\Column(type="string", length=255)
      * @Groups({"read:student", "create:student", "update:student", "avg:student"})
      * @Assert\NotBlank(message="This value should not be blank.", groups={"create:student"})
+     * @Assert\Length(min="3", groups={"create:student", "update:student"})
      */
     private ?string $lastName = null;
 
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"read:student", "create:student", "update:student", "avg:student"})
-     * @Assert\NotNull(message="birthDate is required.", groups={"create:student"})
-     * @Assert\Type(type="\DateTimeInterface", message="incorrect format", groups={"create:student"})
+     * @Assert\NotNull(message="birthDate is required.", groups={"create:student", "update:student"})
+     * @Assert\Type(type="\DateTimeInterface", message="incorrect format", groups={"create:student", "update:student"})
      */
     private ?\DateTimeInterface $birthDate = null;
 
@@ -136,7 +138,7 @@ class Student
         return $this->birthDate;
     }
 
-    public function setBirthDate(\DateTimeInterface $birthDate): self
+    public function setBirthDate(?\DateTimeInterface $birthDate): self
     {
         $this->birthDate = $birthDate;
 

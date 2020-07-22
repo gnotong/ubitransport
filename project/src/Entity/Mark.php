@@ -52,6 +52,7 @@ class Mark
      *     message="This value should not be empty.",
      *     groups={"create:mark"}
      * )
+     * @Assert\Length(min="3", groups={"create:mark"})
      */
     private ?string $subject = null;
 

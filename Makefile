@@ -1,5 +1,5 @@
 # To specify text which are not real files or dir
-.PHONY: install help up build prune down clean func-test vendor
+.PHONY: install help up build prune down clean vendor all-tests functional-test unit-test
 
 # make|make help, Displays help
 .DEFAULT_GOAL = help
@@ -16,7 +16,7 @@ help:
 up: down ## Wakes up containers in the detached mode
 	$(DOCKER_COMPOSE) up -d
 
-install: down clean build up vendor ## Builds containers and run them
+install: down clean build up vendor all-tests ## Install the application and launch the tests
 
 vendor:
 	$(EXEC_PHP) composer install --prefer-dist --no-progress --no-suggest --no-interaction
@@ -56,5 +56,10 @@ db-create: ## Creates mysql database
 clean: prune ## Stops and clean all containers and volumes; removes node_modules, vendor and public/build folders
 	rm -rf project/node_modules; rm -rf project/vendor; rm -rf project/public/build; rm -rf project/var
 
-functional-test:
+all-tests: functional-test unit-test ## Executes functional and unit tests
+
+functional-test: ## Executes functional tests
 	docker-compose exec -T php /app/ubitransport/vendor/bin/simple-phpunit --configuration /app/ubitransport/phpunit.xml.dist --testsuite "Functional testing"
+
+unit-test: ## Executes unit tests
+	docker-compose exec -T php /app/ubitransport/vendor/bin/simple-phpunit --configuration /app/ubitransport/phpunit.xml.dist --testsuite "Unit testing"
