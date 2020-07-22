@@ -20,6 +20,7 @@ install: down clean build up vendor all-tests ## Install the application and lau
 
 vendor:
 	$(EXEC_PHP) composer install --prefer-dist --no-progress --no-suggest --no-interaction
+	$(EXEC_PHP) vendor/bin/simple-phpunit
 
 build: down prune ## Builds images
 	$(DOCKER_COMPOSE) build
@@ -38,12 +39,6 @@ fixtures-all: fixtures fixtures-test  ## Makes data available for the applicatio
 fixtures: migration ## Makes data available for the application
 	$(EXEC_PHP) ./bin/console hautelook:fixtures:load --no-interaction --no-bundles
 
-#fixtures-test:  ## Makes data available for the application in the test environment
-#	$(EXEC_PHP) ./bin/console doctrine:database:drop --if-exists --force --env=test
-#	$(EXEC_PHP) ./bin/console doctrine:database:create --if-not-exists --env=test
-#	$(EXEC_PHP) ./bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration --env=test
-#	$(EXEC_PHP) ./bin/console hautelook:fixtures:load --no-interaction --no-bundles --env=test
-
 migration: db-drop db-create ## Updates database schema
 	$(EXEC_PHP) ./bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
 
@@ -53,8 +48,8 @@ db-drop: ## Drops mysql database
 db-create: ## Creates mysql database
 	$(EXEC_PHP) ./bin/console doctrine:database:create --if-not-exists
 
-clean: prune ## Stops and clean all containers and volumes; removes node_modules, vendor and public/build folders
-	rm -rf project/node_modules; rm -rf project/vendor; rm -rf project/public/build; rm -rf project/var
+clean: prune ## Stops and clean all containers and volumes; removes vendor and var folders
+	rm -rf project/vendor; rm -rf project/var
 
 all-tests: functional-test unit-test ## Executes functional and unit tests
 
