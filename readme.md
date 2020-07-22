@@ -19,7 +19,7 @@ git clone https://github.com/gabrielnotong/ubitransport.git
 
 - use a shell terminal(like terminator) go to the main directory, where the `Makefile` is located
 
-Launch the command `make install` which will make the application available on this [link](http://localhosts:8000/api)
+Launch the command `make install` which will make the application available on this [link](http://localhost:8000/api)
 
 *NB:* to know available commands, type `make` or `make help`
 
