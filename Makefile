@@ -26,7 +26,7 @@ build: down prune ## Builds images
 
 prune: down ## Cleans up unused containers, images and volumes
 	$(DOCKER) system prune -a -f
-	$(DOCKER) volume prune
+	$(DOCKER) volume prune -f
 
 down: ## Switches off all running containers
 	$(DOCKER_COMPOSE) down
