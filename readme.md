@@ -5,6 +5,7 @@
 ### Prerequisites
 
 - You need `docker` and `docker-compose` installed and running on your computer
+- Make sure you have `make` working on your machine
 
 ---
 
@@ -33,6 +34,6 @@ Launch the command `make install` which will make the application available on t
 *`UbiTransport.postman_collection.json`*: is the file to be imported into `postman` it is located in the root project directory
 
 ```
-- it contains postman api requests
+- it contains postman api requests welformatted
 - It can be imported within postman collections
 ```
