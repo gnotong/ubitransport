@@ -30,9 +30,9 @@ Launch the command `make install` which will make the application available on t
 
 - You can use `postman` or `swagger` to interact with the api
 
-```
-In the project root directory, you can notice the presence of this file: UbiTransport.postman_collection.json
+*`UbiTransport.postman_collection.json`*: is the file to be imported into `postman`
 
+```
 - it contains postman api requests
 - It can be imported within postman collections
 ```
