@@ -16,11 +16,10 @@ help:
 up: down ## Wakes up containers in the detached mode
 	$(DOCKER_COMPOSE) up -d
 
-install: down clean build up vendor all-tests ## Install the application and launch the tests
+install: down clean build up vendor ## Install the application
 
-vendor:
+vendor: ## Install symfony dependencies
 	$(EXEC_PHP) composer install --prefer-dist --no-progress --no-suggest --no-interaction
-	$(EXEC_PHP) vendor/bin/simple-phpunit
 
 build: down prune ## Builds images
 	$(DOCKER_COMPOSE) build
