@@ -1,5 +1,13 @@
 # ubitransport test
 
+This API is built using:
+
+- `apiplatform`
+- docker and docker-compose
+- PHP =>7.4.5
+- Symfony 5.1.*
+- Operating System `Ubuntu 19.10`
+
 ---
 
 ### Prerequisites
@@ -41,7 +49,7 @@ Launch the command `make install` which will make the application available on t
 - It can be imported within postman collections
 ```
 
-- The list of student is a paginated api: [localhost:8000/api/students?page=1](http://localhost:8000/api/students?page=1)
+- The list of student is a paginated api: [http://localhost:8000/api/students?page=1](http://localhost:8000/api/students?page=1)
 
 ### Tests
 
